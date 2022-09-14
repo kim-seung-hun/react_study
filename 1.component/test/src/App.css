@@ -8,6 +8,25 @@
   align-items: center;
 }
 
-.App {
+.container {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border: 1px solid;
+}
+
+.title {
+  display: flex;
+}
+
+.week {
+  width: calc(500 / 7) px;
+  height: 20px;
+  display: flex;
+}
+
+.weekday {
+  width: calc(500 / 7) px;
+  height: 20px;
   display: flex;
 }

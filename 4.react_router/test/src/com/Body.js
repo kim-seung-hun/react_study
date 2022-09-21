@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Body = ({ path, name, item }) => {
+const Body = ({ path, name, item, islogin }) => {
   // Link 컴포넌트는 a 태그와 같은 역할을 함 (경로바꾸기) , 라우터간의 이동이 가능
   // Link에 필요한 props는 >> to이름의 props에 이동할 경로를 넣어준다.
 
@@ -21,6 +21,7 @@ const Body = ({ path, name, item }) => {
       {item && item.id ? <div>{item.id}번 상품</div> : null}
       {item && item.num ? <div>{item.num}개</div> : null}
       {item && item.name ? <div>이름 : {item.name}</div> : null}
+      {islogin ? <div>로그인되었음</div> : <div>로그인 안됨</div>}
     </div>
   );
 };

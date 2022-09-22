@@ -1,9 +1,9 @@
 import React from "react";
 
-const Input = () => {
+const Input = ({ inputTxt }) => {
   return (
     <div className="logInput">
-      <input placeholder="ID" />
+      <input placeholder={inputTxt} />
     </div>
   );
 };

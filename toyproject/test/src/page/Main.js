@@ -5,7 +5,7 @@ const Main = () => {
   return (
     <div className="main">
       <Header />
-      <Body path="/" />
+      <Body inputTxt="ID" path="/join" text="login" />
     </div>
   );
 };

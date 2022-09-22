@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Atag = (path) => {
+const Atag = ({ path, txt }) => {
   return (
     <div className="atag">
-      <Link to={path}>회원가입</Link>
+      <Link to={path}>{txt}</Link>
     </div>
   );
 };

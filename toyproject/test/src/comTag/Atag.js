@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Atag = ({ path, txt }) => {
+const Atag = (props) => {
   return (
-    <div className="atag">
-      <Link to={path}>{txt}</Link>
+    <div className="atag" onClick={props.onClickLogOut}>
+      <Link to={props.path}>{props.txt}</Link>
     </div>
   );
 };

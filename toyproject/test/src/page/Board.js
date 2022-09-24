@@ -1,7 +1,15 @@
 import React from "react";
-import { Btn } from "../comTag";
+import { useNavigate } from "react-router-dom";
 
-const board = () => {
+const Board = () => {
+  const styles = {
+    margin: {
+      margin: "50px auto",
+    },
+  };
+
+  const nav = useNavigate();
+
   return (
     <div className="main">
       <div className="board">
@@ -17,12 +25,18 @@ const board = () => {
             <button className="sendcont3">전송</button>
           </div>
         </div>
-        <div className="boardBtn">
-          <Btn text="로그인페이지 이동" pathBtn="/" />
+        <div style={styles.margin} className="btn">
+          <button
+            onClick={() => {
+              nav("/");
+            }}
+          >
+            마이페이지 이동
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default board;
+export default Board;

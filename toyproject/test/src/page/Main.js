@@ -1,28 +1,56 @@
-import React, { useState } from "react";
-import { Header, Body } from "../com";
+import { Header } from "../com";
+import { Input, Atag, Btn } from "../comTag";
 
-const Main = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Main = (props) => {
+  const styles = {
+    marTop: {
+      marginTop: "20px",
+    },
+  };
+
+  const { login, isLoggedIn } = props;
 
   const onClickLogin = () => {
-    setIsLoggedIn(true);
+    login(true);
   };
 
   const onClickLogOut = () => {
-    setIsLoggedIn(false);
+    login(false);
   };
 
   return (
     <div className="main">
       <Header />
-      <Body
-        inputTxt="ID"
-        path="/join"
-        text="login"
-        isLoggedIn={isLoggedIn}
-        onClickLogin={onClickLogin}
-        onClickLogOut={onClickLogOut}
-      />
+      <div className="body" style={styles.marTop}>
+        {isLoggedIn ? (
+          <div className="myText">사용자 님 My Page</div>
+        ) : (
+          <Input inputTxt={"ID"} />
+        )}
+
+        {isLoggedIn ? (
+          <div className="linkPos">
+            <Atag txt="로그아웃" onClickLogOut={onClickLogOut} />
+          </div>
+        ) : (
+          <div className="linkPos">
+            <Atag path={"/join"} txt="회원가입" />
+          </div>
+        )}
+
+        {isLoggedIn ? (
+          <div className="btnPos">
+            <Btn
+              isLoggedIn={isLoggedIn}
+              pathBtn="/board"
+              text="게시판 이동"
+              onClickLogin={onClickLogin}
+            />
+          </div>
+        ) : (
+          <Btn text={"Login"} onClickLogin={onClickLogin} />
+        )}
+      </div>
     </div>
   );
 };

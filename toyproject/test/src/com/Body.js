@@ -20,7 +20,7 @@ const Body = (props) => {
 
       {isLoggedIn ? (
         <div className="linkPos">
-          <Atag path="/" txt="로그아웃" onClickLogOut={onClickLogOut} />
+          <Atag txt="로그아웃" onClickLogOut={onClickLogOut} />
         </div>
       ) : (
         <div className="linkPos">
@@ -31,6 +31,7 @@ const Body = (props) => {
       {isLoggedIn ? (
         <div className="btnPos">
           <Btn
+            isLoggedIn={isLoggedIn}
             pathBtn="/board"
             text="게시판 이동"
             onClickLogin={onClickLogin}

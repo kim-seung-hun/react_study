@@ -5,7 +5,14 @@ const Btn = ({ text, pathBtn, onClickLogin }) => {
   const nav = useNavigate();
   return (
     <div className="btn">
-      <button onClick={onClickLogin}>{text}</button>
+      <button
+        onClick={() => {
+          onClickLogin();
+          nav(pathBtn);
+        }}
+      >
+        {text}
+      </button>
     </div>
   );
 };

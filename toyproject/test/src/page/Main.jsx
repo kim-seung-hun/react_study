@@ -1,5 +1,6 @@
 import { Header } from "../com";
 import { Input, Atag, Btn } from "../comTag";
+import React from "react";
 
 const Main = (props) => {
   const styles = {
@@ -23,7 +24,7 @@ const Main = (props) => {
       <Header />
       <div className="body" style={styles.marTop}>
         {isLoggedIn ? (
-          <div className="myText">사용자 님 My Page</div>
+          <div className="myText">{props.user.userId} 님 My Page</div>
         ) : (
           <Input inputTxt={"ID"} />
         )}

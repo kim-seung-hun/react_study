@@ -1,6 +1,6 @@
 import { Header } from "../com";
 import { Input, Atag, Btn } from "../comTag";
-import React from "react";
+import React, { useState } from "react";
 
 const Main = (props) => {
   const styles = {
@@ -11,8 +11,24 @@ const Main = (props) => {
 
   const { login, isLoggedIn } = props;
 
+  const [logId, setLogId] = useState("");
+
+  const onChangeId = (e) => {
+    setLogId(e.target.value);
+  };
+
+  const isId = (element) => {
+    if (element.userId === logId) {
+      return true;
+    }
+  };
+
   const onClickLogin = () => {
-    login(true);
+    if (props.users.find(isId)) {
+      login(true);
+    } else {
+      alert("아이디를 확인해주세요");
+    }
   };
 
   const onClickLogOut = () => {
@@ -24,9 +40,11 @@ const Main = (props) => {
       <Header />
       <div className="body" style={styles.marTop}>
         {isLoggedIn ? (
-          <div className="myText">{props.user.userId} 님 My Page</div>
+          <div className="myText">{logId} 님 My Page</div>
         ) : (
-          <Input inputTxt={"ID"} />
+          <div className="logInput">
+            <input value={logId} onChange={onChangeId} placeholder="ID" />
+          </div>
         )}
 
         {isLoggedIn ? (

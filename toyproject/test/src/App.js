@@ -25,11 +25,22 @@ function App() {
     [user]
   );
 
+  const isUser = (element) => {
+    if (element.userId === user.userId) {
+      return true;
+    }
+  };
+
   const joinUser = useCallback(() => {
-    alert(`아이디 : ${user.userId} , 이름 : ${user.userName}`);
-    setUsers((currentArray) => [...currentArray, user]);
-    nav("/");
+    if (users.find(isUser)) {
+      alert("이미 존재하는 아이디입니다.");
+    } else {
+      alert(`아이디 : ${user.userId} , 이름 : ${user.userName}`);
+      setUsers((currentArray) => [...currentArray, user]);
+      nav("/");
+    }
   }, [user]);
+  console.log(users);
 
   const [isLoggedIn, setLogin] = useState(false);
 

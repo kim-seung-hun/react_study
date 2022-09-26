@@ -9,12 +9,15 @@ const Main = (props) => {
     },
   };
 
-  const { login, isLoggedIn } = props;
-
-  const [logId, setLogId] = useState("");
+  const { login, isLoggedIn, logId, setLogId, setContent } = props;
 
   const onChangeId = (e) => {
     setLogId(e.target.value);
+    setContent((current) => {
+      let newContent = { ...current };
+      newContent[e.target.name] = e.target.value;
+      return newContent;
+    });
   };
 
   const isId = (element) => {
@@ -34,7 +37,6 @@ const Main = (props) => {
   const onClickLogOut = () => {
     login(false);
   };
-
   return (
     <div className="main">
       <Header />
@@ -43,7 +45,7 @@ const Main = (props) => {
           <div className="myText">{logId} 님 My Page</div>
         ) : (
           <div className="logInput">
-            <input value={logId} onChange={onChangeId} placeholder="ID" />
+            <input name="writeId" onChange={onChangeId} placeholder="ID" />
           </div>
         )}
 
@@ -60,6 +62,7 @@ const Main = (props) => {
         {isLoggedIn ? (
           <div className="btnPos">
             <Btn
+              logId={logId}
               isLoggedIn={isLoggedIn}
               pathBtn="/board"
               text="게시판 이동"

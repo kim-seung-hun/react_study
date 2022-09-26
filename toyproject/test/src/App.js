@@ -10,7 +10,22 @@ function App() {
     userId: "",
     userName: "",
   });
+
   const [users, setUsers] = useState([]);
+
+  const [logId, setLogId] = useState("");
+
+  const [content, setContent] = useState({
+    writeId: "",
+    write: "",
+  });
+
+  const [contents, setContents] = useState([]);
+
+  console.log(contents);
+  // console.log(user);
+
+  ////////////////////////////////////////////////////////////////
 
   const onChangeHandle = useCallback(
     (e) => {
@@ -30,7 +45,6 @@ function App() {
       return true;
     }
   };
-
   const joinUser = useCallback(() => {
     if (users.find(isUser)) {
       alert("이미 존재하는 아이디입니다.");
@@ -39,14 +53,26 @@ function App() {
       setUsers((currentArray) => [...currentArray, user]);
       nav("/");
     }
-  }, [user]);
-  console.log(users);
+  }, [user, users]);
+
+  const resistContent = useCallback(() => {
+    setContents((currentArray) => [...currentArray, content]);
+  }, [content, contents]);
+
+  ////////////////////////////////////////////////////////////////////
 
   const [isLoggedIn, setLogin] = useState(false);
 
   const Redirect = () => {
     return isLoggedIn == true ? (
-      <Board isLoggedIn={isLoggedIn} />
+      <Board
+        isLoggedIn={isLoggedIn}
+        logId={logId}
+        setContent={setContent}
+        content={content}
+        contents={contents}
+        resistContent={resistContent}
+      />
     ) : (
       <Navigate to={"/"} />
     );
@@ -63,6 +89,9 @@ function App() {
               users={users}
               login={setLogin}
               isLoggedIn={isLoggedIn}
+              logId={logId}
+              setLogId={setLogId}
+              setContent={setContent}
             />
           }
         />

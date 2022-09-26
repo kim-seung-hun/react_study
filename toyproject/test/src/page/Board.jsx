@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Board = (props) => {
-  const { logId, setContent, content, resistContent, contents } = props;
+  const { logId, onChangeContent, resistContent, contents, content } = props;
 
   const styles = {
     margin: {
@@ -27,13 +27,7 @@ const Board = (props) => {
 
   const nav = useNavigate();
 
-  const onChangeHandle = (e) => {
-    setContent((current) => {
-      let newContent = { ...current };
-      newContent[e.target.name] = e.target.value;
-      return newContent;
-    });
-  };
+  console.log(content);
 
   const contentList = contents.map((v, index) => (
     <div style={styles.flex} key={index}>
@@ -58,7 +52,7 @@ const Board = (props) => {
               name="write"
               className="sendcont2"
               placeholder="내용 입력해주세요"
-              onChange={onChangeHandle}
+              onChange={onChangeContent}
             />
             <button className="sendcont3" onClick={resistContent}>
               전송

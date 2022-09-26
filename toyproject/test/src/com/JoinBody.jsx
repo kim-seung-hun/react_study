@@ -19,9 +19,7 @@ const JoinBody = (props) => {
         />
       </div>
       <div className="btn">
-        <button onClick={props.joinUser} type="submit">
-          {props.text}
-        </button>
+        <button onClick={props.joinUser}>{props.text}</button>
       </div>
     </div>
     // </form>

@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, useCallback } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { Main, Join, Board } from "./page";
+import { Main, Join, Board, Find } from "./page";
 
 function App() {
   const nav = useNavigate();
@@ -22,10 +22,28 @@ function App() {
 
   const [contents, setContents] = useState([]);
 
-  console.log(contents);
-  // console.log(user);
+  const [findName, setFindName] = useState("");
 
   ////////////////////////////////////////////////////////////////
+
+  const onChangeFind = useCallback((e) => {
+    setFindName(e.target.value);
+  });
+
+  const isName = (e) => {
+    if (e.userName === findName) {
+      return true;
+    }
+  };
+
+  const findUser = useCallback(() => {
+    if (users.find(isName)) {
+      alert(`아이디 : ${users.find(isName).userId}`);
+      nav("/");
+    } else {
+      alert("아이디가 없으니 , 이름을 다시 확인해주세요");
+    }
+  });
 
   const onChangeHandle = useCallback(
     (e) => {
@@ -38,6 +56,14 @@ function App() {
       });
     },
     [user]
+  );
+
+  const onChangeContent = useCallback(
+    (e) => {
+      let con = e.target.value;
+      console.log(con);
+    },
+    [content]
   );
 
   const isUser = (element) => {
@@ -72,6 +98,7 @@ function App() {
         content={content}
         contents={contents}
         resistContent={resistContent}
+        onChangeContent={onChangeContent}
       />
     ) : (
       <Navigate to={"/"} />
@@ -104,6 +131,10 @@ function App() {
               onChangeHandle={onChangeHandle}
             />
           }
+        />
+        <Route
+          path="/find"
+          element={<Find onChangeFind={onChangeFind} findUser={findUser} />}
         />
         <Route path="/board" element={<Redirect />} />
       </Routes>

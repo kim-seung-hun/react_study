@@ -13,11 +13,11 @@ const Main = (props) => {
 
   const onChangeId = (e) => {
     setLogId(e.target.value);
-    setContent((current) => {
-      let newContent = { ...current };
-      newContent[e.target.name] = e.target.value;
-      return newContent;
-    });
+    // setContent((current) => {
+    //   let newContent = { ...current };
+    //   newContent[e.target.name] = e.target.value;
+    //   return newContent;
+    // });
   };
 
   const isId = (element) => {
@@ -28,6 +28,11 @@ const Main = (props) => {
 
   const onClickLogin = () => {
     if (props.users.find(isId)) {
+      setContent((current) => {
+        let newContent = { ...current };
+        newContent.writeId = logId;
+        return newContent;
+      });
       login(true);
     } else {
       alert("아이디를 확인해주세요");
@@ -56,6 +61,7 @@ const Main = (props) => {
         ) : (
           <div className="linkPos">
             <Atag path={"/join"} txt="회원가입" />
+            <Atag path={"/find"} txt="ID찾기" />
           </div>
         )}
 

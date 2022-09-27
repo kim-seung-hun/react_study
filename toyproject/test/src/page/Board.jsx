@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Board = (props) => {
-  const { logId, onChangeContent, resistContent, contents, content } = props;
+  const { logId, onChangeContent, resistContent, contents, setContent } = props;
+
+  const [write, setWrite] = useState("");
 
   const styles = {
     margin: {
@@ -27,7 +31,22 @@ const Board = (props) => {
 
   const nav = useNavigate();
 
-  console.log(content);
+  const onChangeHandle = useCallback(
+    (e) => {
+      setWrite(e.target.value);
+    },
+    [write]
+  );
+
+  const setCont = useCallback(() => {
+    setContent((current) => {
+      const newContent = { ...current };
+      newContent.write = write;
+      return newContent;
+    });
+  }, [write]);
+
+  console.log(write);
 
   const contentList = contents.map((v, index) => (
     <div style={styles.flex} key={index}>
@@ -52,9 +71,15 @@ const Board = (props) => {
               name="write"
               className="sendcont2"
               placeholder="내용 입력해주세요"
-              onChange={onChangeContent}
+              onChange={onChangeHandle}
             />
-            <button className="sendcont3" onClick={resistContent}>
+            <button
+              className="sendcont3"
+              onClick={() => {
+                setCont();
+                resistContent();
+              }}
+            >
               전송
             </button>
           </div>

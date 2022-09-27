@@ -58,14 +58,6 @@ function App() {
     [user]
   );
 
-  const onChangeContent = useCallback(
-    (e) => {
-      let con = e.target.value;
-      console.log(con);
-    },
-    [content]
-  );
-
   const isUser = (element) => {
     if (element.userId === user.userId) {
       return true;
@@ -83,11 +75,13 @@ function App() {
 
   const resistContent = useCallback(() => {
     setContents((currentArray) => [...currentArray, content]);
-  }, [content, contents]);
+  }, [contents]);
 
   ////////////////////////////////////////////////////////////////////
 
   const [isLoggedIn, setLogin] = useState(false);
+
+  console.log(content);
 
   const Redirect = () => {
     return isLoggedIn == true ? (
@@ -98,7 +92,6 @@ function App() {
         content={content}
         contents={contents}
         resistContent={resistContent}
-        onChangeContent={onChangeContent}
       />
     ) : (
       <Navigate to={"/"} />
@@ -118,6 +111,7 @@ function App() {
               isLoggedIn={isLoggedIn}
               logId={logId}
               setLogId={setLogId}
+              setUser={setUser}
               setContent={setContent}
             />
           }

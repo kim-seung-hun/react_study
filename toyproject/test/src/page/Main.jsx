@@ -9,20 +9,17 @@ const Main = (props) => {
     },
   };
 
-  const { login, isLoggedIn, logId, setLogId, setContent } = props;
+  const { login, isLoggedIn, logId, setLogId, setContent, setUser } = props;
 
   const onChangeId = (e) => {
     setLogId(e.target.value);
-    // setContent((current) => {
-    //   let newContent = { ...current };
-    //   newContent[e.target.name] = e.target.value;
-    //   return newContent;
-    // });
   };
 
   const isId = (element) => {
     if (element.userId === logId) {
       return true;
+    } else {
+      return false;
     }
   };
 
@@ -41,7 +38,17 @@ const Main = (props) => {
 
   const onClickLogOut = () => {
     login(false);
+    setLogId("");
+    setUser((current) => {
+      const newUser = { ...current };
+
+      newUser.userId = "";
+      newUser.userName = "";
+
+      return newUser;
+    });
   };
+
   return (
     <div className="main">
       <Header />

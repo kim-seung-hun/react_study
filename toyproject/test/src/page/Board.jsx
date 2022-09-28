@@ -24,7 +24,7 @@ const Board = (props) => {
       marginTop: "10px",
     },
     width70: {
-      width: "70%",
+      width: "50%",
       marginTop: "10px",
     },
   };
@@ -45,24 +45,45 @@ const Board = (props) => {
     pageNum.push(i);
   }
 
-  const contentList = contents?.slice(start, end).map((v, index) => (
-    <div style={styles.flex} key={index}>
-      <div style={styles.width30}>{v.writeId}</div>
-      <div style={styles.width70}>{v.write}</div>
-    </div>
-  ));
-
   const onRemove = async (e) => {
     contents.splice(Number(e.target.className), 1);
     alert("삭제되었습니다");
     nav("/board");
   };
+  console.log(contents);
+
+  const contentList = contents?.slice(start, end).map((v, index) => (
+    <div style={styles.flex} key={index}>
+      <div style={styles.width30}>{v.writeId}</div>
+      <div style={styles.width70}>{v.write}</div>
+      {v.writeId == logId ? (
+        <div style={{ width: "20%" }}>
+          <button
+            style={{
+              backgroundColor: "#fa6ee3",
+              color: "black",
+              borderStyle: "none",
+              width: "15px",
+              marginTop: "10px",
+              fontWeight: "900",
+            }}
+            className={index}
+            onClick={onRemove}
+          >
+            X
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
+    </div>
+  ));
 
   const contentListManager = contents?.slice(start, end).map((v, index) => (
     <div style={styles.flex} key={index}>
       <div style={styles.width30}>{v.writeId}</div>
       <div style={styles.width70}>{v.write}</div>
-      <div>
+      <div style={{ width: "20%" }}>
         <button
           style={{
             backgroundColor: "#fa6ee3",
@@ -135,8 +156,13 @@ const Board = (props) => {
         <div className="boardTitle">Board</div>
         <div className="boardContent">
           <div className="conTitle">
-            <div className="cont1">작성자</div>
-            <div className="cont2">내용</div>
+            <div className="cont1" style={{ width: "30%" }}>
+              작성자
+            </div>
+            <div className="cont2" style={{ width: "50%" }}>
+              내용
+            </div>
+            <div style={{ width: "20%" }}></div>
           </div>
           {logId == "manager" ? (
             <div style={styles.contents}>{contentListManager}</div>
@@ -168,6 +194,7 @@ const Board = (props) => {
               className="sendcont3"
               onClick={() => {
                 resistContent();
+                alert("등록되었습니다");
               }}
             >
               올리기

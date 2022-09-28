@@ -81,8 +81,6 @@ function App() {
 
   const [isLoggedIn, setLogin] = useState(false);
 
-  console.log(content);
-
   const Redirect = () => {
     return isLoggedIn == true ? (
       <Board
@@ -92,6 +90,7 @@ function App() {
         content={content}
         contents={contents}
         resistContent={resistContent}
+        setContents={setContents}
       />
     ) : (
       <Navigate to={"/"} />
@@ -113,6 +112,7 @@ function App() {
               setLogId={setLogId}
               setUser={setUser}
               setContent={setContent}
+              setContents={setContents}
             />
           }
         />

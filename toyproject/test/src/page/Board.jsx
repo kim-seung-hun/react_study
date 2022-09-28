@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Board = (props) => {
-  const { logId, onChangeContent, resistContent, contents, setContent } = props;
+  const { logId, resistContent, contents, setContent, setContents } = props;
 
   const [write, setWrite] = useState("");
 
@@ -49,6 +49,35 @@ const Board = (props) => {
     <div style={styles.flex} key={index}>
       <div style={styles.width30}>{v.writeId}</div>
       <div style={styles.width70}>{v.write}</div>
+    </div>
+  ));
+
+  const onRemove = async (e) => {
+    contents.splice(Number(e.target.className), 1);
+    alert("삭제되었습니다");
+    nav("/board");
+  };
+
+  const contentListManager = contents?.slice(start, end).map((v, index) => (
+    <div style={styles.flex} key={index}>
+      <div style={styles.width30}>{v.writeId}</div>
+      <div style={styles.width70}>{v.write}</div>
+      <div>
+        <button
+          style={{
+            backgroundColor: "#fa6ee3",
+            color: "black",
+            borderStyle: "none",
+            width: "15px",
+            marginTop: "10px",
+            fontWeight: "900",
+          }}
+          className={index}
+          onClick={onRemove}
+        >
+          X
+        </button>
+      </div>
     </div>
   ));
 
@@ -109,7 +138,11 @@ const Board = (props) => {
             <div className="cont1">작성자</div>
             <div className="cont2">내용</div>
           </div>
-          <div style={styles.contents}>{contentList}</div>
+          {logId == "manager" ? (
+            <div style={styles.contents}>{contentListManager}</div>
+          ) : (
+            <div style={styles.contents}>{contentList}</div>
+          )}
           {pagination}
           <div className="send">
             <div className="sendcont1">{logId} 님</div>

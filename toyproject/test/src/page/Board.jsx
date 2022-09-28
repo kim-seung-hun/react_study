@@ -14,7 +14,7 @@ const Board = (props) => {
     },
     contents: {
       color: "white",
-      margin: "20px",
+      margin: "15px",
     },
     flex: {
       display: "flex",
@@ -31,6 +31,27 @@ const Board = (props) => {
 
   const nav = useNavigate();
 
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setStart((currentPage - 1) * 15);
+    setEnd(currentPage * 15);
+  }, [currentPage]);
+
+  const pageNum = [];
+  for (let i = 1; i < Math.ceil(contents?.length / 15); i++) {
+    pageNum.push(i);
+  }
+
+  const contentList = contents?.slice(start, end).map((v, index) => (
+    <div style={styles.flex} key={index}>
+      <div style={styles.width30}>{v.writeId}</div>
+      <div style={styles.width70}>{v.write}</div>
+    </div>
+  ));
+
   const onChangeHandle = useCallback(
     (e) => {
       setWrite(e.target.value);
@@ -38,22 +59,46 @@ const Board = (props) => {
     [write]
   );
 
-  const setCont = useCallback(() => {
-    setContent((current) => {
-      const newContent = { ...current };
-      newContent.write = write;
-      return newContent;
-    });
-  }, [write]);
-
-  console.log(write);
-
-  const contentList = contents.map((v, index) => (
-    <div style={styles.flex} key={index}>
-      <div style={styles.width30}>{v.writeId}</div>
-      <div style={styles.width70}>{v.write}</div>
-    </div>
-  ));
+  const pagination = (
+    <nav
+      style={{
+        listStyle: "none",
+        display: "flex",
+        justifyContent: "center",
+        color: "white",
+        position: "absolute",
+        width: "100%",
+        bottom: "85px",
+      }}
+    >
+      {pageNum.map((num) => {
+        return (
+          <li
+            style={{
+              margin: "5px",
+            }}
+            key={num}
+          >
+            <button
+              style={{
+                fontSize: "25px",
+                fontWeight: "700",
+                color: "#fa6ee3",
+                backgroundColor: "black",
+                borderStyle: "none",
+                cursor: "grab",
+              }}
+              onClick={() => {
+                setCurrentPage(num);
+              }}
+            >
+              {num}
+            </button>
+          </li>
+        );
+      })}
+    </nav>
+  );
 
   return (
     <div className="main">
@@ -65,6 +110,7 @@ const Board = (props) => {
             <div className="cont2">내용</div>
           </div>
           <div style={styles.contents}>{contentList}</div>
+          {pagination}
           <div className="send">
             <div className="sendcont1">{logId} 님</div>
             <input
@@ -76,11 +122,22 @@ const Board = (props) => {
             <button
               className="sendcont3"
               onClick={() => {
-                setCont();
+                setContent((current) => {
+                  const newContent = { ...current };
+                  newContent.write = write;
+                  return newContent;
+                });
+              }}
+            >
+              등록
+            </button>
+            <button
+              className="sendcont3"
+              onClick={() => {
                 resistContent();
               }}
             >
-              전송
+              올리기
             </button>
           </div>
         </div>

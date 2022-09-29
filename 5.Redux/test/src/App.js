@@ -1,7 +1,15 @@
 import "./App.css";
+import { useState } from "react";
+import { Count, CountView } from "./com";
 
 function App() {
-  return <div className="App"></div>;
+  const [count, setCount] = useState(0);
+  return (
+    <div className="App">
+      <CountView count={count} />
+      <Count setCount={setCount} count={count} />
+    </div>
+  );
 }
 
 export default App;

@@ -42,4 +42,13 @@
 // 리덕스를 사용해보자
 
 // npm install redux >> 리덕스 코어 설치
-//
+
+// 리덕스는 리액트 외에 다른 곳에서도 쓸수 있음
+
+// 리액트에서 react-redux 라이브러리로 편하게 사용가능
+
+// npm install react-redux
+
+// Provider
+// Provider 컴포넌트이고 이 컴포넌트로 감싸준 컴포넌트를 리덕스 저장소의 사용을 가능하게 만들어준다.
+// 이 컴포넌트는 props로 store에서 전달 받는다.

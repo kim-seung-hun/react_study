@@ -75,7 +75,7 @@ function App() {
 
   const resistContent = useCallback(() => {
     setContents((currentArray) => [...currentArray, content]);
-  }, [content, contents]);
+  }, [content]);
 
   ////////////////////////////////////////////////////////////////////
 

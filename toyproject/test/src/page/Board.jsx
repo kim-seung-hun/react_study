@@ -7,6 +7,8 @@ const Board = (props) => {
   const { logId, resistContent, contents, setContent, setContents } = props;
 
   const [write, setWrite] = useState("");
+  const [isEmit, setIsEmit] = useState("수정");
+  const [emit, setEmit] = useState("");
 
   const styles = {
     margin: {
@@ -18,14 +20,33 @@ const Board = (props) => {
     },
     flex: {
       display: "flex",
+      margin: "10px",
     },
     width30: {
       width: "30%",
-      marginTop: "10px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    MaWidth30: {
+      width: "30%",
+      color: "yellow",
+      fontWeight: "900",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
     width70: {
       width: "50%",
-      marginTop: "10px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    update: {
+      width: "50%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
   };
 
@@ -40,9 +61,9 @@ const Board = (props) => {
     setEnd(currentPage * 15);
   }, [currentPage]);
 
-  const pageNum = [];
+  const pageNum = [1];
   for (let i = 1; i < Math.ceil(contents?.length / 15); i++) {
-    pageNum.push(i);
+    pageNum.push(i + 1);
   }
 
   const onRemove = (e) => {
@@ -51,21 +72,88 @@ const Board = (props) => {
     nav("/board");
   };
 
-  console.log(contents);
+  const onClickEmit = (e) => {
+    setIsEmit(e.target.className);
+  };
+
+  const onChangeEmit = (e) => {
+    setEmit(e.target.value);
+  };
+
+  const emitComplete = (e) => {
+    const eNum = Number(e.target.className);
+    let newCont = [...contents];
+    newCont[eNum].write = emit;
+    setContents(newCont);
+    setIsEmit("수정");
+  };
 
   const contentList = contents?.slice(start, end).map((v, index) => (
     <div style={styles.flex} key={index}>
-      <div style={styles.width30}>{v.writeId}</div>
-      <div style={styles.width70}>{v.write}</div>
+      {v.writeId == "manager" ? (
+        <div style={styles.MaWidth30}>{v.writeId}</div>
+      ) : (
+        <div style={styles.width30}>{v.writeId}</div>
+      )}
+      {isEmit == index ? (
+        <div style={styles.update}>
+          <input
+            style={{
+              border: "1px solid #fa6ee3",
+              backgroundColor: "black",
+              height: "100%",
+              color: "white",
+            }}
+            onChange={onChangeEmit}
+          />
+          <button
+            style={{
+              backgroundColor: "black",
+              color: "#fa6ee3",
+              borderStyle: "none",
+              width: "60px",
+              marginLeft: "10px",
+              fontWeight: "900",
+              cursor: "grab",
+            }}
+            className={index}
+            onClick={emitComplete}
+          >
+            {"[수정 완료]"}
+          </button>
+        </div>
+      ) : (
+        <div style={styles.width70}>{v.write}</div>
+      )}
       {v.writeId == logId ? (
-        <div style={{ width: "20%" }}>
+        <div
+          style={{
+            width: "20%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <button
             style={{
               backgroundColor: "black",
               color: "#fa6ee3",
               borderStyle: "none",
               width: "40px",
-              marginTop: "13px",
+              fontWeight: "900",
+              cursor: "grab",
+            }}
+            className={index}
+            onClick={onClickEmit}
+          >
+            {"[수정]"}
+          </button>
+          <button
+            style={{
+              backgroundColor: "black",
+              color: "#fa6ee3",
+              borderStyle: "none",
+              width: "40px",
               fontWeight: "900",
               cursor: "grab",
             }}
@@ -83,22 +171,83 @@ const Board = (props) => {
 
   const contentListManager = contents?.slice(start, end).map((v, index) => (
     <div style={styles.flex} key={index}>
-      <div style={styles.width30}>{v.writeId}</div>
-      <div style={styles.width70}>{v.write}</div>
-      <div style={{ width: "20%" }}>
+      {v.writeId == "manager" ? (
+        <div style={styles.MaWidth30}>{v.writeId}</div>
+      ) : (
+        <div style={styles.width30}>{v.writeId}</div>
+      )}
+      {isEmit == index ? (
+        <div style={styles.update}>
+          <input
+            style={{
+              border: "1px solid #fa6ee3",
+              backgroundColor: "black",
+              height: "100%",
+              color: "white",
+            }}
+            onChange={onChangeEmit}
+          />
+          <button
+            style={{
+              backgroundColor: "black",
+              color: "#fa6ee3",
+              borderStyle: "none",
+              width: "60px",
+              marginLeft: "10px",
+              fontWeight: "900",
+              cursor: "grab",
+            }}
+            className={index}
+            onClick={emitComplete}
+          >
+            {"[수정 완료]"}
+          </button>
+        </div>
+      ) : (
+        <div style={styles.width70}>{v.write}</div>
+      )}
+      <div
+        style={{
+          width: "20%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {v.writeId == logId ? (
+          <button
+            style={{
+              backgroundColor: "black",
+              color: "#fa6ee3",
+              borderStyle: "none",
+              width: "40px",
+              fontWeight: "900",
+              cursor: "grab",
+            }}
+            className={index}
+            onClick={onClickEmit}
+          >
+            {"[수정]"}
+          </button>
+        ) : (
+          ""
+        )}
         <button
           style={{
-            backgroundColor: "#fa6ee3",
-            color: "black",
+            backgroundColor: "black",
+            color: "#fa6ee3",
             borderStyle: "none",
-            width: "15px",
-            marginTop: "10px",
+            width: "40px",
             fontWeight: "900",
+            cursor: "grab",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
           className={index}
           onClick={onRemove}
         >
-          X
+          {"[삭제]"}
         </button>
       </div>
     </div>
@@ -120,7 +269,7 @@ const Board = (props) => {
         color: "white",
         position: "absolute",
         width: "100%",
-        bottom: "85px",
+        bottom: "80px",
       }}
     >
       {pageNum.map((num) => {

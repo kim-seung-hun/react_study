@@ -45,11 +45,12 @@ const Board = (props) => {
     pageNum.push(i);
   }
 
-  const onRemove = async (e) => {
+  const onRemove = (e) => {
     contents.splice(Number(e.target.className), 1);
     alert("삭제되었습니다");
     nav("/board");
   };
+
   console.log(contents);
 
   const contentList = contents?.slice(start, end).map((v, index) => (
@@ -60,17 +61,18 @@ const Board = (props) => {
         <div style={{ width: "20%" }}>
           <button
             style={{
-              backgroundColor: "#fa6ee3",
-              color: "black",
+              backgroundColor: "black",
+              color: "#fa6ee3",
               borderStyle: "none",
-              width: "15px",
-              marginTop: "10px",
+              width: "40px",
+              marginTop: "13px",
               fontWeight: "900",
+              cursor: "grab",
             }}
             className={index}
             onClick={onRemove}
           >
-            X
+            {"[삭제]"}
           </button>
         </div>
       ) : (

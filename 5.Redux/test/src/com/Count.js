@@ -2,8 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Count = (props) => {
-  const { setCount, count } = props;
-
   // useDispatch 함수를 사용하고
   const dispatch = useDispatch();
   // redux -> reducer에 쓰임

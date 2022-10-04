@@ -109,13 +109,21 @@
     // 시/분 변환하기
 
     function App() {
-      const [minutes, setMinutes] = React.useState(0);
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setinverted] = React.useState(false);
       const onChange = (e) => {
-        setMinutes(e.target.value);
+        setAmount(e.target.value);
       };
       const reset = () => {
-        setMinutes(0);
+        setAmount(0);
       };
+
+      // 다음 state의 계산은 현재 state를 불러온 후 계산해주는것이 좋다
+      const onInvert = () => {
+        reset();
+        setinverted((current) => !current);
+      };
+
       return (
         <div>
           <h1>Super Converter</h1>
@@ -123,26 +131,31 @@
             <label htmlFor="minutes">Minutes</label>
             <input
               // input값을 외부에서도 수정해주기 위해 value와 연결시켜준다 ex) reset
-              value={minutes}
+              value={inverted ? amount * 60 : amount}
               id="minutes"
               placeholder="Minutes"
               type="number"
               // input value가 state이기 떄문에 onChange를 지우면 값이 초기 state값이 defualt
               onChange={onChange}
+              disabled={inverted}
             />
           </div>
           <div>
             <label htmlFor="hours">Hours</label>
             <input
               // 반올림
-              value={Math.round(minutes / 60)}
+              value={inverted ? amount : Math.round(amount / 60)}
               id="hours"
               placeholder="hours"
               type="number"
-              disabled
+              disabled={!inverted}
+              onChange={onChange}
             />
           </div>
           <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>
+            {inverted ? "Turn back" : "Invert"}
+          </button>
         </div>
       );
     }

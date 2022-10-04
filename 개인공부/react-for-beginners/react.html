@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <!-- react / react-dom 설치 -->
+  <script
+    src="https://unpkg.com/react@18/umd/react.development.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    crossorigin
+  ></script>
+
+  <!-- JSX변환기 설치 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    // 숫자 카운트 하기
+
+    // React.createElement 의 두번쨰 인자로는 property(className , id 등) 가 들어온다.
+    // 세번쨰 인자로는 content에 들어갈 내용을 써준다
+    // const h3 = React.createElement(
+    //   "h3",
+    //   {
+    //     id: "title",
+    //     onMouseEnter: () => {
+    //       console.log("mouse enter");
+    //     },
+    //   },
+    //   "Hello I'm span"
+    // );
+
+    // property에 everntLitner도 등록 가능하다
+    // const btn = React.createElement(
+    //   "button",
+    //   {
+    //     style: {
+    //       backgroundColor: "tomato",
+    //     },
+    //     onClick: () => {
+    //       console.log("im click");
+    //     },
+    //   },
+    //   "click me"
+    // );
+
+    // JSX 사용
+    // 자바스크립트 코드는 JSX가 없기때문에 아래 코드를 읽지 못한다.
+    // JSX 변환기를 설치해야한다.
+    // const Title = () => (
+    //   <h3
+    //     id="title"
+    //     onMouseEnter={() => {
+    //       console.log("mouse enter");
+    //     }}
+    //   >
+    //     Hello I'm title
+    //   </h3>
+    // );
+
+    // const Button = () => (
+    //   <button
+    //     onClick={() => {
+    //       console.log("click");
+    //     }}
+    //     style={{ backgroundColor: "tomato" }}
+    //   >
+    //     click me
+    //   </button>
+    // );
+
+    // 2개의 component(span, btn)를 가지는 1개의 component(div)를 만든다.
+    // span과 btn을 같이 render 하는 방법
+    // const container = React.createElement("div", null, [Title, Button]);
+
+    // function App() {
+    //   // const data = React.useState(0);  [0 , f()] => 초기값 , 값을 바꾸는 함수
+    //   // 배열에 있는 요소를 꺼내서 이름 부여하기
+    //   const [counter, setCounter] = React.useState(0);
+
+    //   // state가 바뀌면 리렌더링 된다.
+    //   const onClick = () => {
+    //     // setCounter(counter + 1);
+    //     setCounter((current) => current + 1); // 현재(current)의 값에서 +1 해주는게 더 안전하다 >> 함수전달 방법
+    //   };
+
+    //   return (
+    //     <div>
+    //       <h3>Total clicks : {counter}</h3>
+    //       <button onClick={onClick}>Click me</button>
+    //     </div>
+    //   );
+    // }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    // 시/분 변환하기
+
+    function App() {
+      const [minutes, setMinutes] = React.useState(0);
+      const onChange = (e) => {
+        setMinutes(e.target.value);
+      };
+      const reset = () => {
+        setMinutes(0);
+      };
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <div>
+            <label htmlFor="minutes">Minutes</label>
+            <input
+              // input값을 외부에서도 수정해주기 위해 value와 연결시켜준다 ex) reset
+              value={minutes}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              // input value가 state이기 떄문에 onChange를 지우면 값이 초기 state값이 defualt
+              onChange={onChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input
+              // 반올림
+              value={Math.round(minutes / 60)}
+              id="hours"
+              placeholder="hours"
+              type="number"
+              disabled
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+        </div>
+      );
+    }
+
+    // UI를 업데이트 해주기 위해선 계속 Rerendering 해줘야한다.
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

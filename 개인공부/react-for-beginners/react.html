@@ -106,118 +106,175 @@
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    // 시/분 변환하기
+    // // 시/분 변환하기
 
-    function MinutesToHours() {
-      const [amount, setAmount] = React.useState(0);
-      const [inverted, setinverted] = React.useState(false);
-      const onChange = (e) => {
-        setAmount(e.target.value);
-      };
-      const reset = () => {
-        setAmount(0);
-      };
+    // function MinutesToHours() {
+    //   const [amount, setAmount] = React.useState(0);
+    //   const [inverted, setinverted] = React.useState(false);
+    //   const onChange = (e) => {
+    //     setAmount(e.target.value);
+    //   };
+    //   const reset = () => {
+    //     setAmount(0);
+    //   };
 
-      // 다음 state의 계산은 현재 state를 불러온 후 계산해주는것이 좋다
-      const onInvert = () => {
-        reset();
-        setinverted((current) => !current);
-      };
+    //   // 다음 state의 계산은 현재 state를 불러온 후 계산해주는것이 좋다
+    //   const onInvert = () => {
+    //     reset();
+    //     setinverted((current) => !current);
+    //   };
 
+    //   return (
+    //     <div>
+    //       <div>
+    //         <label htmlFor="minutes">Minutes</label>
+    //         <input
+    //           // input값을 외부에서도 수정해주기 위해 value와 연결시켜준다 ex) reset
+    //           value={inverted ? amount * 60 : amount}
+    //           id="minutes"
+    //           placeholder="Minutes"
+    //           type="number"
+    //           // input value가 state이기 떄문에 onChange를 지우면 값이 초기 state값이 defualt
+    //           onChange={onChange}
+    //           disabled={inverted}
+    //         />
+    //       </div>
+    //       <div>
+    //         <label htmlFor="hours">Hours</label>
+    //         <input
+    //           // 반올림
+    //           value={inverted ? amount : Math.round(amount / 60)}
+    //           id="hours"
+    //           placeholder="hours"
+    //           type="number"
+    //           disabled={!inverted}
+    //           onChange={onChange}
+    //         />
+    //       </div>
+    //       <button onClick={reset}>Reset</button>
+    //       <button onClick={onInvert}>
+    //         {inverted ? "Turn back" : "Invert"}
+    //       </button>
+    //     </div>
+    //   );
+    // }
+
+    // // KM/M 변환하기
+    // function KmToMiles() {
+    //   const [distance, setDistance] = React.useState("");
+    //   const [invert, setInvert] = React.useState(false);
+
+    //   const onChangeHandle = (e) => {
+    //     setDistance(e.target.value);
+    //   };
+    //   const reset = () => {
+    //     setDistance(0);
+    //   };
+    //   const inverted = (e) => {
+    //     reset();
+    //     setInvert((current) => !current);
+    //   };
+    //   return (
+    //     <div>
+    //       <div>
+    //         <label htmlFor="KM">KM</label>
+    //         <input
+    //           value={invert ? distance / 1000 : distance}
+    //           id="KM"
+    //           type="number"
+    //           onChange={onChangeHandle}
+    //           placeholder="KM"
+    //           disabled={invert}
+    //         />
+    //       </div>
+    //       <div>
+    //         <label htmlFor="Miles">Miles</label>
+    //         <input
+    //           value={invert ? distance : distance * 1000}
+    //           id="Miles"
+    //           type="number"
+    //           onChange={onChangeHandle}
+    //           placeholder="Miles"
+    //           disabled={!invert}
+    //         />
+    //       </div>
+    //       <button onClick={reset}>reset</button>
+    //       <button onClick={inverted}>{invert ? "Turn back" : "Invert"}</button>
+    //     </div>
+    //   );
+    // }
+
+    // function App() {
+    //   const [index, setIndex] = React.useState("1");
+    //   const onSelect = (e) => {
+    //     setIndex(e.target.value);
+    //   };
+    //   return (
+    //     <div>
+    //       <h1>Super Converter</h1>
+    //       <select value={index} onChange={onSelect}>
+    //         <option value="xx">select your index</option>
+    //         <option value="0">Minutes & Hours</option>
+    //         <option value="1">KM & Miles</option>
+    //       </select>
+    //       <hr />
+    //       {index === "xx" ? "please select your option" : null}
+    //       {index === "0" ? <MinutesToHours /> : null}
+    //       {index === "1" ? <KmToMiles /> : null}
+    //     </div>
+    //   );
+    // }
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+    // props : object(객체)
+    // string , true/false , 함수
+
+    function Btn({ text, changeValue }) {
       return (
-        <div>
-          <div>
-            <label htmlFor="minutes">Minutes</label>
-            <input
-              // input값을 외부에서도 수정해주기 위해 value와 연결시켜준다 ex) reset
-              value={inverted ? amount * 60 : amount}
-              id="minutes"
-              placeholder="Minutes"
-              type="number"
-              // input value가 state이기 떄문에 onChange를 지우면 값이 초기 state값이 defualt
-              onChange={onChange}
-              disabled={inverted}
-            />
-          </div>
-          <div>
-            <label htmlFor="hours">Hours</label>
-            <input
-              // 반올림
-              value={inverted ? amount : Math.round(amount / 60)}
-              id="hours"
-              placeholder="hours"
-              type="number"
-              disabled={!inverted}
-              onChange={onChange}
-            />
-          </div>
-          <button onClick={reset}>Reset</button>
-          <button onClick={onInvert}>
-            {inverted ? "Turn back" : "Invert"}
-          </button>
-        </div>
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+          }}
+          onClick={changeValue}
+        >
+          {text}
+        </button>
       );
     }
-    function KmToMiles() {
-      const [distance, setDistance] = React.useState("");
-      const [invert, setInvert] = React.useState(false);
 
-      const onChangeHandle = (e) => {
-        setDistance(e.target.value);
-      };
-      const reset = () => {
-        setDistance(0);
-      };
-      const inverted = (e) => {
-        reset();
-        setInvert((current) => !current);
-      };
-      return (
-        <div>
-          <div>
-            <label htmlFor="KM">KM</label>
-            <input
-              value={invert ? distance / 1000 : distance}
-              id="KM"
-              type="number"
-              onChange={onChangeHandle}
-              placeholder="KM"
-              disabled={invert}
-            />
-          </div>
-          <div>
-            <label htmlFor="Miles">Miles</label>
-            <input
-              value={invert ? distance : distance * 1000}
-              id="Miles"
-              type="number"
-              onChange={onChangeHandle}
-              placeholder="Miles"
-              disabled={!invert}
-            />
-          </div>
-          <button onClick={reset}>reset</button>
-          <button onClick={inverted}>{invert ? "Turn back" : "Invert"}</button>
-        </div>
-      );
-    }
+    const MemorizedBtn = React.memo(Btn);
+
     function App() {
-      const [index, setIndex] = React.useState("1");
-      const onSelect = (e) => {
-        setIndex(e.target.value);
+      const [value, setValue] = React.useState("Save Change");
+      const changeValue = () => {
+        setValue("Revert Change");
       };
+
+      // Btn을 클릭하면 아래 두개의 Btn이 re-rendering 되는것을 볼수 있다.
+      // 그런데 re-rendering은 state 값이 바뀌면 발생되는데,
+      // 아래 Btn은 state 값이 바뀌지 않았는데도 re-rendering되는 이유는,
+      // 부모의 state 값 변경이 부모가 되면 자식도 같이 re-rendering 된다.
+
+      // 메모리관리를 위해선 , props가 변경되지 않는다는 조건에서 , component를 re-rendering 할지 안할지 정할수 있다
+      // React.memo() 사용
+
+      // propTypes(url 필요)
+      // props의 타입을 설정해줄수있다.
+      // ex)
+      // Btn.propTypes = {
+      //   text: PropTypes.string.isRequired,
+      //   fontSize; PropTypes.number.isRequired,
+      // }
+
       return (
         <div>
-          <h1>Super Converter</h1>
-          <select value={index} onChange={onSelect}>
-            <option value="xx">select your index</option>
-            <option value="0">Minutes & Hours</option>
-            <option value="1">KM & Miles</option>
-          </select>
-          <hr />
-          {index === "xx" ? "please select your option" : null}
-          {index === "0" ? <MinutesToHours /> : null}
-          {index === "1" ? <KmToMiles /> : null}
+          <MemorizedBtn text={value} changeValue={changeValue} />
+          <MemorizedBtn text="Continue" />
         </div>
       );
     }

@@ -34,9 +34,9 @@ sequelize
     console.log(err);
   });
 
-app.get("/", (req, res) => {
-  res.send({ id: "aaa" });
-});
+// app.get("/", (req, res) => {
+//   res.send({ id: "aaa" });
+// });
 
 app.post("/signUp", async (req, res) => {
   let { id, pw } = req.body;

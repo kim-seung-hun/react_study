@@ -15,3 +15,5 @@
 // styled-components
 
 // npm i redux react-redux redux-thunk react-router-dom axios styled-components
+
+// 개인프로젝트 시작
